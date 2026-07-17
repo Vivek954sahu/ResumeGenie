@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { env } from "./env.js";
+import { envVar } from "./env.js";
 import { logger } from "../utils/logger.js";
 
 let isConnect = false;
@@ -14,8 +14,9 @@ export const connectDB = async () => {
     }
 
     try {
-        const conn = await mongoose.connect(env.mongoUri, {
-            autoIndex: env.nodeEnv != "production",
+        console.log(envVar.mongoUri);
+        const conn = await mongoose.connect(envVar.mongoUri, {
+            autoIndex: envVar.nodeEnv != "production",
             serverSelectionTimeoutMS: 5000,
             socketTimeoutMS: 45000,
             maxPoolSize: 20,

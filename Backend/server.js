@@ -1,4 +1,4 @@
-import { env, loadEnv } from "./src/config/env.js";
+import {envVar, loadEnv } from "./src/config/env.js";
 import app from "./src/app.js";
 import http from "http";
 import { connectDB } from "./src/config/db.js";
@@ -8,7 +8,7 @@ loadEnv();
 
 const server = http.createServer(app);
 
-const PORT = env.port || 3000;
+const PORT = envVar.port || 3000;
 
 // Start Server
 const startServer = async () => {

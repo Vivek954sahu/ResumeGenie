@@ -1,7 +1,7 @@
 import pino from "pino";
-import { env } from "../config/env.js";
+import { envVar } from "../config/env.js";
 
-let isDevelopment = env.nodeEnv;
+let isDevelopment = envVar.nodeEnv;
 
 export const logger = pino({
     level: isDevelopment ? "debug" : "info",
