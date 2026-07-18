@@ -2,6 +2,7 @@ import { generateAccessToken } from "../config/jwt.js";
 import { User } from "../models/user.model.js";
 import bcrypt from "bcryptjs";
 import { ApiError } from "../utils/ApiError.js";
+import { BlackList } from "../models/blacklist.model.js";
 
 /** 
  * @name registerUserCtrl
@@ -46,7 +47,6 @@ export const registerUserCtrl = async (req, res) => {
 };
 
 /**
- * 
  * @name loginUserCtrl
  * @desc login a user, expects email and password in req body.
  * @access Public
@@ -74,5 +74,25 @@ export const loginUserCtrl = async (req, res) => {
             username: user.username,
             email: user.email
         }
+    });
+};
+
+/**
+ * @name logoutUserCtrl
+ * @desc clear token from user cookie and add token to blacklist
+ * @access Public
+ */
+export const logoutUserCtrl = async (req, res) => {
+    const token = req.cookies.token;
+
+    if (token) {
+        await BlackList.create({ token })
+    }
+
+    res.clearCookie("token");
+
+    res.status(200).json({
+        success: true,
+        message: "User logged out successfully"
     });
 };
