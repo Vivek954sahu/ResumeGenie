@@ -96,3 +96,22 @@ export const logoutUserCtrl = async (req, res) => {
         message: "User logged out successfully"
     });
 };
+
+/**
+ * @name getMeCtrl 
+ * @desc Fetch the details of current logged in user
+ * @access Private
+ */
+export const getMeCtrl = async (req, res) => {
+    const user = await User.findById(req.user.id);
+
+    res.status(200).json({
+        success: true,
+        message: "User details fetched successfully.",
+        user: {
+            id: user._id,
+            username: user.username,
+            email: user.email
+        }
+    });
+};
