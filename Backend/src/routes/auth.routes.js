@@ -23,7 +23,7 @@ authRouter.post("/logout", asyncHandler(logoutUserCtrl));
 /**
  * @route GET /api/v1/auth/get-me
  */
-authRouter.get("/get-me", authenticate, asyncHandler(getMeCtrl));
+authRouter.get("/me", authenticate, asyncHandler(getMeCtrl));
 
 
 export default authRouter;
